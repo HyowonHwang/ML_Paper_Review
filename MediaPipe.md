@@ -52,6 +52,24 @@ node {
 }
 ```
 
+```
+class SomeAudioVideoCalculator : public CalculatorBase {
+ public:
+  static ::mediapipe::Status GetContract(CalculatorContract* cc) {
+    cc->Inputs().Index(0).SetAny();
+    // SetAny() is used to specify that whatever the type of the
+    // stream is, it's acceptable.  This does not mean that any
+    // packet is acceptable.  Packets in the stream still have a
+    // particular type.  SetAny() has the same effect as explicitly
+    // setting the type to be the stream's type.
+    cc->Outputs().Tag("VIDEO").Set<ImageFrame>();
+    cc->Outputs().Get("AUDIO", 0).Set<Matrix>();
+    cc->Outputs().Get("AUDIO", 1).Set<Matrix>();
+    return ::mediapipe::OkStatus();
+  }
+```
+
+
 
 ## Reference
 https://google.github.io/mediapipe/framework_concepts/framework_concepts.html
