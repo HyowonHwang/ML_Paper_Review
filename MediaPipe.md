@@ -28,6 +28,29 @@ MediaPipe::Adopt()
 
 # Calculator
 * Each calculator is a node of a graph
+```c++ 
+
+Open()
+Process() (repeatedly)
+Close()
+```
+
+```
+node {
+  calculator: "SomeAudioVideoCalculator"
+  input_stream: "combined_input"
+  output_stream: "VIDEO:video_stream"
+  output_stream: "AUDIO:0:audio_left"
+  output_stream: "AUDIO:1:audio_right"
+}
+
+node {
+  calculator: "SomeAudioCalculator"
+  input_stream: "audio_left"
+  input_stream: "audio_right"
+  output_stream: "audio_energy"
+}
+```
 
 
 ## Reference
